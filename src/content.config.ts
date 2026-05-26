@@ -1,23 +1,23 @@
-import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
-
-const releases = defineCollection({
-	// Load Markdown files in the src/content/releases directory.
-	loader: glob({ base: './src/content/releases', pattern: '**/*.md' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			versionNumber: z.string(),
-			image: z.object({
-				src: image(),
-				alt: z.string(),
-			}),
-			// Transform string to Date object
-			date: z.coerce.date(),
-		}),
+// Import the glob loader
+import { glob } from "astro/loaders";
+// Import utilities from `astro:content`
+import { defineCollection } from "astro:content";
+// Import Zod
+import { z } from "astro/zod";
+// Define a `loader` and `schema` for each collection
+const blog = defineCollection({
+    loader: glob({ pattern: '**/[^_]*.md', base: "./src/blog" }),
+    schema: z.object({
+      title: z.string(),
+      pubDate: z.date(),
+      description: z.string(),
+      author: z.string(),
+      image: z.object({
+        url: z.string(),
+        alt: z.string()
+      }),
+      tags: z.array(z.string())
+    })
 });
-
-export const collections = { releases };
+// Export a single `collections` object to register your collection(s)
+export const collections = { blog };
