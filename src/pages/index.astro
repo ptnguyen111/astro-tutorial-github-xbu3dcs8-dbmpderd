@@ -6,4 +6,9 @@ const pageTitle = "Home Page";
 <BaseLayout pageTitle={pageTitle}>
   <h2>My awesome blog subtitle</h2>
   <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+  <h3><span> Change Deploy strategy </span></h3>
+  <ul>
+    <li>Deploy from branch main will auto publish to <strong>Production</strong></li>
+    <li>Deploy from branch staging will auto publish <strong>Deploy Preview</strong></li>
+  </ul>
 </BaseLayout>
